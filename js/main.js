@@ -538,4 +538,6 @@ const initApp = () => {
 
 }
 
-initApp();
+
+/// ***  need to correctly init the app - listenr for page load
+document.addEventListener( 'DOMContentLoaded', (event) => { initApp(); } );
