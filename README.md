@@ -6,6 +6,8 @@
 
 _Once you are working with your own copy of the project on Glitch..._
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5a76c775-d549-4dc5-a10a-750d5297dbbb/deploy-status)](https://app.netlify.com/sites/competent-cray-225cc6/deploys)
+
 **Follow the directions available in Blackboard** 
 
 _DO NOT CHANGE any of the pre-existing code. Your code only goes in main.js._
