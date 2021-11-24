@@ -139,6 +139,15 @@ waiting on the logic inside the toggleComments function until we get there.*/
 
 const addButtonListeners = () => {
 
+    const mainElement = document.querySelector( "main" );
+    const buttonElements = mainElement.getElementsByTagName( "button" );
+    console.log(buttonElements);
+    
+    for( var i = 0; i < buttonElements.length ; i++ ){
+        buttonElements[i].addEventListener( "click", (event) => { console.log("worked"); }, false );
+    }
+    
+    return buttonElements;
 }
 
 /*removeButtonListeners
@@ -150,7 +159,15 @@ removeEventListener)
 e. Refer to the addButtonListeners function as this should be nearly identical
 f. Return the button elements which were selected*/
 
-const removeButtonListners = () => {
+const removeButtonListeners = () => {
+    const mainElement = document.querySelector( "main" );
+    const buttonElements = mainElement.getElementsByTagName( "button" );
+    
+    for( var i = 0; i < buttonElements.length; i++ ){
+        buttonElements[i].removeEventListener( "click", (event) => { console.log("worked"); }, false );
+    }
+    
+    return buttonElements;
 
 }
 
@@ -169,8 +186,23 @@ j. Append the h3 and paragraphs to the article element (see cheatsheet)
 k. Append the article element to the fragment
 l. Return the fragment element*/
 
-const createComments = () => {
+const createComments = ( comments ) => {
 
+    if( !comments ) return;
+
+    const returnValue = document.createDocumentFragment();
+
+    for( var i = 0; i < comments.length; i++ ){
+        const article = document.createElement("article");
+        const h3Element = document.createElemWithText('h3', comments.name );
+        const p1Element = document.createElemWithText('p', comments.body );
+        const p2Element = document.createElemWithText('p', `From: ${comments.email}`);
+        article.append(h3Element);
+        article.appent(p1Element);
+        article.append(p2Element);
+        returnValue.append(article);
+    }
+    return returnValue;
 }
 
 /*populateSelectMenu
@@ -197,6 +229,7 @@ e. Await the users data response
 f. Return the JSON data*/
 
 const getUsers = async () => {
+
 
 }
 
@@ -320,7 +353,7 @@ h. Return an array containing the section element returned from
 toggleCommentSection and the button element returned from
 toggleCommentButton: [section, button]*/
 
-const toggleComments = ( param1, param2 ) => {
+const toggleComments = async ( param1, param2 ) => {
 
 }
 
