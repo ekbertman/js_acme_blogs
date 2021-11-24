@@ -194,11 +194,11 @@ const createComments = ( comments ) => {
 
     for( var i = 0; i < comments.length; i++ ){
         const article = document.createElement("article");
-        const h3Element = document.createElemWithText('h3', comments.name );
-        const p1Element = document.createElemWithText('p', comments.body );
-        const p2Element = document.createElemWithText('p', `From: ${comments.email}`);
+        const h3Element = createElemWithText('h3', comments.name );
+        const p1Element = createElemWithText('p', comments.body );
+        const p2Element = createElemWithText('p', `From: ${comments.email}`);
         article.append(h3Element);
-        article.appent(p1Element);
+        article.append(p1Element);
         article.append(p2Element);
         returnValue.append(article);
     }
@@ -215,7 +215,16 @@ f. Loops through the options elements and appends each option element to the
 select menu
 g. Return the selectMenu element*/
 
-const populateSelectMenu = () => {
+const populateSelectMenu = ( data ) => {
+
+    const selectMenu = document.getElementById( "selectMenu" );
+    const arrayOptions = createSelectOptions( data );
+
+    for( var i = 0; i < arrayOptions.length; i++ ){
+        selectMenu.append(arrayOptions[i]);
+    }
+
+    return selectMenu;
 
 }
 
@@ -230,6 +239,8 @@ f. Return the JSON data*/
 
 const getUsers = async () => {
 
+    const response = await fetch('https://jsonplaceholder.typicode.com/users/');
+    return response.json();
 
 }
 
@@ -244,7 +255,10 @@ e. Uses the fetch API to request all users
 f. Await the users data response
 g. Return the JSON data*/
 
-const getUserPosts = async () => {
+const getUserPosts = async ( userId ) => {
+
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
+    return response.json();
 
 }
 
@@ -258,7 +272,10 @@ e. Uses the fetch API to request the user
 f. Await the user data response
 g. Return the JSON data*/
 
-const getUser = async () => {
+const getUser = async (userId) => {
+
+    const response = await fetch('https://jsonplaceholder.typicode.com/users?userId=${userId}');
+    return response.json();
 
 }
 
@@ -375,6 +392,8 @@ fragment, addButtons]*/
 
 const refreshPosts = async () => {
 
+         
+
 }
 
 /* selectMenuChangeEventHandler
@@ -392,6 +411,12 @@ i. Return an array with the userId, posts and the array returned from refreshPos
 
 const selectMenuChangeEventHandler = async () => {
 
+    //const userPosts = await getUserPosts( event.target.value );
+    //refreshPosts( userPosts );
+
+    console.log("posts");
+    return
+
 }
 
 /* initPage
@@ -407,6 +432,11 @@ result from populateSelectMenu: [users, select]*/
 
 const initPage = async () => {
 
+    const users = await getUsers();
+    const selector = populateSelectMenu( users );
+
+    return {users, selector};
+
 }
 
 /* initApp
@@ -421,4 +451,11 @@ However, I can only test if the initApp function exists. It does not return anyt
 
 const initApp = () => {
 
+    initPage();
+    const selectorElement = document.getElementById( 'selectMenu' );
+    console.log(selectorElement);
+    selectorElement.addEventListener( 'change', selectMenuChangeEventHandler, false )
+
 }
+
+initApp();
